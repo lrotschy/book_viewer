@@ -1,0 +1,20 @@
+<!-- this one goes with the solution provided -->
+<h2 class="content-subhead">Search</h2>
+
+<form action="/search" method="get">
+  <input name="query" value="<%= params[:query] %>">
+  <button type="submit">Search</button>
+</form>
+
+<% if @results.empty? && params[:query] %>
+  <h4>No results found</h4>
+<% else %>
+  <% @results.each do |chapter| %>
+    <h4><%= chapter[:name] %></h4>
+    <ul>
+      <% chapter[:paragraphs].each do |idx, text| %>
+      <li><a href="/chapters/<%= chapter[:number] %>#paragraph<%= idx %>" class="pure-menu-link"></a><%= text %></li>
+      <% end %>
+      </ul>
+    <% end %>
+<% end %>
